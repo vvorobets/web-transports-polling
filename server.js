@@ -17,16 +17,18 @@ app.get('/script.js', function(req, res){
 });
 
 app.post('/users', function(req, res){
-console.log("xhr got!");
-console.log(req.body.nickName);
+// console.log("xhr got!");
+// console.log(req.body.nickName);
 	if(nickNames.indexOf(req.body.nickName) < 0) {
 		nickNames.push(req.body.nickName);
 		res.json(messages);
 	} else {
 		res.status(403).send({ error: "Nickname is invalid! Please try again later."});
 	}
-console.log(nickNames);
+});
 
+app.get('/users', function(req, res){
+	res.json(nickNames);
 });
 
 app.get('/messages', function(req, res){

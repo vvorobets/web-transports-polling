@@ -5,6 +5,7 @@
 	const nick = document.getElementById('nick');
 	const enterButton = document.getElementById('enterButton');
 	const errMessage = document.getElementById('errorMessage');
+	const usersList = document.getElementById('usersList');
 
 	var messages = document.getElementById('messages');
 	var text = document.getElementById('text');
@@ -63,7 +64,7 @@ console.log(msg);
 			if(xmlHttp.status === 200 && xmlHttp.readyState === 4) {
 console.log("Response: " + xmlHttp.responseText);
 				callback(xmlHttp.responseText);
-			}
+			} else if(xmlHttp.status === 403) errorHandler(xmlHttp.responseText);
 		};
 		xmlHttp.send(JSON.stringify(data));
 
@@ -85,6 +86,24 @@ console.log("Response: " + xmlHttp.responseText);
 				}
 			}
 		});
+		ajaxRequest({
+			url: '/users',
+			method: 'GET',
+			callback: function(msg) {
+				const users = JSON.parse(msg);
+console.log(users);
+
+				usersList.innerHTML = '';
+				if(users.length > 0) {
+					for(let i in users) {
+						var el = document.createElement('li');
+						el.innerText = users[i];
+						usersList.appendChild(el);
+					}
+				}
+				
+			}
+		});
 	};
 
 	function buildChat() {
@@ -93,10 +112,7 @@ console.log("Response: " + xmlHttp.responseText);
 	};
 
 	function errorHandler(msg) {
-		
-		errMessage.innerText = "Nickname is already used! Please choose another one.";
-		chatEnter.appendChild(errMessage);
-		console.log("Error: "+ msg);
+		errMessage.innerText = "Nickname is already used! Please choose another one."; // JSON.parse(msg).error;
 	}
 
 	getData();
