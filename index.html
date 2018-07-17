@@ -39,6 +39,12 @@ h3 {
 .enterContainer {
     padding: 16px;
 }
+#errorMessage {
+	color: red;
+	font-weight: bold;
+	width: 90vw;
+	text-align: center;
+}
 		</style>
 	</head>
 	<body>
@@ -51,6 +57,7 @@ h3 {
 				<label for="nick"><b>Nickname</b></label>
 				<input type="text" placeholder="Enter Nickname" id="nick" required>
 				<button type="submit" id="enterButton"><b>OK</b></button>
+				<p id="errorMessage"></p>
 				</div>
 			</form>
 			<!-- <h3 id="userHeader"></h3>

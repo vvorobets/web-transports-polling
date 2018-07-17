@@ -21,6 +21,7 @@ console.log("xhr got!");
 console.log(req.body.nickName);
 	if(nickNames.indexOf(req.body.nickName) < 0) {
 		nickNames.push(req.body.nickName);
+		res.json(messages);
 	} else {
 		res.status(403).send({ error: "Nickname is invalid! Please try again later."});
 	}

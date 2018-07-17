@@ -4,6 +4,7 @@
 	const uname = document.getElementById('uname');
 	const nick = document.getElementById('nick');
 	const enterButton = document.getElementById('enterButton');
+	const errMessage = document.getElementById('errorMessage');
 
 	var messages = document.getElementById('messages');
 	var text = document.getElementById('text');
@@ -24,7 +25,10 @@ console.log("Clicked!");
 			url: '/users',
 			data: data,
 			callback: 
-function(x) {buildChat();}
+function(msg) {
+console.log(msg);
+	buildChat();
+}
 			
 
 			// buildChat()
@@ -57,7 +61,7 @@ function(x) {buildChat();}
 		xmlHttp.setRequestHeader('Content-Type', 'application/json');
 		xmlHttp.onreadystatechange = function() {
 			if(xmlHttp.status === 200 && xmlHttp.readyState === 4) {
-console.log(xmlHttp.responseText);
+console.log("Response: " + xmlHttp.responseText);
 				callback(xmlHttp.responseText);
 			}
 		};
@@ -84,8 +88,16 @@ console.log(xmlHttp.responseText);
 	};
 
 	function buildChat() {
+		errMessage.innerText = '';
 		chatEnter.style.display = "none";
 	};
+
+	function errorHandler(msg) {
+		
+		errMessage.innerText = "Nickname is already used! Please choose another one.";
+		chatEnter.appendChild(errMessage);
+		console.log("Error: "+ msg);
+	}
 
 	getData();
 
