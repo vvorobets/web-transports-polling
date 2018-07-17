@@ -1,0 +1,30 @@
+{
+  "name": "web-transports_-ajax-polling-",
+  "version": "1.0.0",
+  "description": "BSA Web Transports task 1 of 2",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvorobets/web-transports_-AJAX-Polling-.git"
+  },
+  "keywords": [
+    "web-transports",
+    "AJAX-polling",
+    "BSA"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vvorobets/web-transports_-AJAX-Polling-/issues"
+  },
+  "homepage": "https://github.com/vvorobets/web-transports_-AJAX-Polling-#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "path": "^0.12.7"
+  }
+}
