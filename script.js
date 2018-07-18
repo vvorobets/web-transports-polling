@@ -48,7 +48,10 @@ function(msg) {
 		ajaxRequest({
 			method: 'POST',
 			url: '/messages',
-			data: data
+			data: data,
+			callback: function(msg){
+				
+			}
 		})
 	});
 

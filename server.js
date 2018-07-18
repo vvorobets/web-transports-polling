@@ -49,6 +49,7 @@ app.post('/messages', function(req, res){
 	if(messages.length > 100) {
 		messages.shift();
 	}
+	res.json(messages);
 });
 
 http.listen(5000, function(){
