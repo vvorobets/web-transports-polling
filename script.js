@@ -122,5 +122,5 @@ function(msg) {
 
 	setInterval(function() {
 		getData();
-	}, 3000);
+	}, 1000);
 })();
