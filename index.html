@@ -21,7 +21,7 @@ input[type=text] {
 }
 button {
     background-color: #4CAF50;
-    color: white;
+    color: black;
     padding: 12px 20px;
     margin: 8px 0;
     border: none;
@@ -32,12 +32,14 @@ button:hover {
     opacity: 0.8;
 }
 h3 {
-    background-color: #999999;
+    background-color: #333333;
     color: white;
-    padding: 12px 20px;
+	padding: 12px 20px;
+	margin: 0;
 }
 .enterContainer {
-    padding: 16px;
+	padding: 16px;
+	background-color: #AAAAAA;
 }
 #errorMessage {
 	color: red;
@@ -50,11 +52,43 @@ h3 {
 }
 #usersList {
 	grid-area: aside;
+	background-color: #333333;
+	font-weight: bold;
+	padding: 5px;
+	align-self: stretch;
+	margin: 0;
 }
-#chatMain {
+#usersList li {
+	list-style-type: none;
+	border-radius: 5px;
+	background-color: white;
+	color: black;
+	margin: 10px 5px;
+	padding: 5px 5px;
+}
+#messages {
 	grid-area: main;
+	padding: 10px;
 }
-#chatSend {
+#messages li {
+	list-style-type: none;
+	border-radius: 5px;
+	background-color: white;
+	color: black;
+	margin: 10px 5px;
+	padding: 5px 5px;
+}
+.left-aligned {
+	text-align: left;
+}
+.right-aligned {
+	text-align: right;
+}
+#messages li small {
+	color:#AAA;
+	margin-left: auto;
+}
+#sendMessage {
 	grid-area: send;
 }
 #text {
@@ -83,6 +117,7 @@ h3 {
 		"aside main"
 		"send send";
 	grid-gap: 5px;
+	background-color: #AAAAAA;
 }
 		</style>
 	</head>
@@ -99,27 +134,16 @@ h3 {
 				<p id="errorMessage"></p>
 				</div>
 			</form>
-			<div id="chat">
+			<div id="chat" style="display: none">
 				<h3>Chat</h3>
 				<ul id="usersList"></ul>
-				<ul id="chatMain"></ul>```````````
-				<form id="chatSend">
+				<ul id="messages"></ul>
+				<form id="sendMessage">
 					<input type="text" placeholder="Enter Message" id="text" required>
 					<input type="submit" id="textSubmit" value="Send">
 				</form> 
 			</div>
-			<!-- <h3 id="userHeader"></h3>
-			<div>
-				<input type="text" placeholder="Your name" id="nameInput">
-				<input type="button" value="OK" id="nameButton">
-			</div> -->
-			<ul id="messages"></ul>
-			<div>
-				<textarea id="text" cols="30" rows="10"></textarea>
-				<input type="button" value="Send" id="textSubmit">
-			</div>
-		
 		</div>
-				<script src="script.js"></script>
+		<script src="script.js"></script>
 	</body>
 </html>

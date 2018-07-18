@@ -17,14 +17,13 @@ app.get('/script.js', function(req, res){
 });
 
 app.post('/users', function(req, res){
-// console.log("xhr got!");
-// console.log(req.body.nickName);
-	if(nickNames.indexOf(req.body.nickName) < 0) {
-		nickNames.push(req.body.nickName);
-		res.json(messages);
-	} else {
-		res.status(403).send({ error: "Nickname is invalid! Please try again later."});
-	}
+	nickNames.forEach(el=>{
+		if(el.nickName===req.body.nickName) {
+			res.status(403).send({ error: "Nickname is invalid! Please try again later."});
+		}
+	});
+	nickNames.push(req.body);
+	res.json({});
 });
 
 app.get('/users', function(req, res){
@@ -36,8 +35,9 @@ app.get('/messages', function(req, res){
 });
 
 app.post('/messages', function(req, res){
-console.log("mes.xhr got!");
 	messages.push(req.body);
+console.log("Pushed by: " + req.body.nick);
+console.log(req.body);
 	if(messages.length > 100) {
 		messages.shift();
 	}

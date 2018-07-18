@@ -6,6 +6,7 @@
 	const enterButton = document.getElementById('enterButton');
 	const errMessage = document.getElementById('errorMessage');
 	const usersList = document.getElementById('usersList');
+	const chat = document.getElementById('chat');
 
 	var messages = document.getElementById('messages');
 	var text = document.getElementById('text');
@@ -16,18 +17,20 @@
 
 	enterButton.addEventListener('click', function(e) {
 		e.preventDefault();
+		userName = uname.value;
+		nickName = nick.value;
 		var data = {
-			userName: uname.value,
-			nickName: nick.value
+			userName: userName,
+			nickName: nickName
 		}
-console.log("Clicked!");
+// console.log("Clicked!");
 		ajaxRequest({
 			method: 'POST',
 			url: '/users',
 			data: data,
 			callback: 
 function(msg) {
-console.log(msg);
+// console.log(msg);
 	buildChat();
 }
 			
@@ -38,9 +41,12 @@ console.log(msg);
 	});
 
 	textSubmit.onclick = function() {
+console.log("Onsubmit!");
+		let time = new Date();
 		var data = {
-			name: userName,
-			text: text.value
+			nickName: nickName,
+			text: text.value,
+			time: time.toUTCString()
 		};
 		text.value = '';
 
@@ -60,27 +66,32 @@ console.log(msg);
 
 		xmlHttp.open(method, url, true);
 		xmlHttp.setRequestHeader('Content-Type', 'application/json');
+		xmlHttp.send(JSON.stringify(data));
 		xmlHttp.onreadystatechange = function() {
 			if(xmlHttp.status === 200 && xmlHttp.readyState === 4) {
-console.log("Response: " + xmlHttp.responseText);
+// console.log("Response: " + xmlHttp.responseText);
 				callback(xmlHttp.responseText);
 			} else if(xmlHttp.status === 403) errorHandler(xmlHttp.responseText);
 		};
-		xmlHttp.send(JSON.stringify(data));
-
+		
 	};
 
 	const getData = function() {
+// console.log("Get data!");
 		ajaxRequest({
 			url: '/messages',
 			method: 'GET',
 			callback: function(msg) {
 				msg = JSON.parse(msg);
 				messages.innerHTML = '';
+				let side = "left-aligned";
 				for(var i in msg) {
 					if(msg.hasOwnProperty(i)) {
 						var el = document.createElement('li');
-						el.innerText = msg[i].name + ': ' + msg[i].text;
+						el.setAttribute('class', side);
+						side = side === 'left-aligned' ? 'right-aligned' : 'left-aligned';
+						el.innerHTML = '<span>' + msg[i].nickName + ' <small><i>' + msg[i].time + '</i></small></span><br><p>' + 
+						msg[i].text + '</p>';
 						messages.appendChild(el);
 					}
 				}
@@ -91,13 +102,13 @@ console.log("Response: " + xmlHttp.responseText);
 			method: 'GET',
 			callback: function(msg) {
 				const users = JSON.parse(msg);
-console.log(users);
+// console.log(users);
 
 				usersList.innerHTML = '';
 				if(users.length > 0) {
 					for(let i in users) {
 						var el = document.createElement('li');
-						el.innerText = users[i];
+						el.innerHTML = '<i>' + users[i].userName + ' </i><b> @' + users[i].nickName + '</b>';
 						usersList.appendChild(el);
 					}
 				}
@@ -109,6 +120,7 @@ console.log(users);
 	function buildChat() {
 		errMessage.innerText = '';
 		chatEnter.style.display = "none";
+		chat.style.display = "grid";
 	};
 
 	function errorHandler(msg) {
