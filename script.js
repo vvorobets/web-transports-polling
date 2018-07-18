@@ -23,25 +23,20 @@
 			userName: userName,
 			nickName: nickName
 		}
-// console.log("Clicked!");
 		ajaxRequest({
 			method: 'POST',
 			url: '/users',
 			data: data,
 			callback: 
 function(msg) {
-// console.log(msg);
 	buildChat();
 }
-			
-
-			// buildChat()
 		});
 
 	});
 
-	textSubmit.onclick = function() {
-console.log("Onsubmit!");
+	textSubmit.addEventListener('click', function(e) {
+		e.preventDefault();
 		let time = new Date();
 		var data = {
 			nickName: nickName,
@@ -55,7 +50,7 @@ console.log("Onsubmit!");
 			url: '/messages',
 			data: data
 		})
-	};
+	});
 
 	var ajaxRequest = function(options) {
 		var url = options.url || '/';
@@ -69,7 +64,6 @@ console.log("Onsubmit!");
 		xmlHttp.send(JSON.stringify(data));
 		xmlHttp.onreadystatechange = function() {
 			if(xmlHttp.status === 200 && xmlHttp.readyState === 4) {
-// console.log("Response: " + xmlHttp.responseText);
 				callback(xmlHttp.responseText);
 			} else if(xmlHttp.status === 403) errorHandler(xmlHttp.responseText);
 		};
@@ -77,7 +71,6 @@ console.log("Onsubmit!");
 	};
 
 	const getData = function() {
-// console.log("Get data!");
 		ajaxRequest({
 			url: '/messages',
 			method: 'GET',
@@ -102,8 +95,6 @@ console.log("Onsubmit!");
 			method: 'GET',
 			callback: function(msg) {
 				const users = JSON.parse(msg);
-// console.log(users);
-
 				usersList.innerHTML = '';
 				if(users.length > 0) {
 					for(let i in users) {
@@ -131,5 +122,5 @@ console.log("Onsubmit!");
 
 	setInterval(function() {
 		getData();
-	}, 15000);
+	}, 3000);
 })();

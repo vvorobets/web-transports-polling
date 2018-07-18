@@ -36,8 +36,6 @@ app.get('/messages', function(req, res){
 
 app.post('/messages', function(req, res){
 	messages.push(req.body);
-console.log("Pushed by: " + req.body.nick);
-console.log(req.body);
 	if(messages.length > 100) {
 		messages.shift();
 	}
